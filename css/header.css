@@ -1,0 +1,15 @@
+.header {
+  height: 50px;
+  background-color: #1c64c3;
+}
+
+.menu {
+  text-align: right;
+}
+
+.icon__menu {
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
