@@ -13,7 +13,7 @@
           <img
             width="100%"
             class="card-img-top text-center"
-            src="/assets/image/logo.webp"
+            src="/assets/image/redminote12pro5g-0.webp"
             alt="Title" />
           <div class="card-body">
             <h5 class="card__title">

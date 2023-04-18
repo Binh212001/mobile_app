@@ -12,7 +12,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./css/index.css" />
-    <link rel="stylesheet" href="./css/header.css" />
+
     <link rel="stylesheet" href="./css/home.css" />
     <link
       rel="stylesheet"
@@ -25,6 +25,7 @@
     <main class="main mt-5">
 
     <!--#include file="./components/slider.asp"  -->
+
       <section class="content mt-5">
         <div class="row container-fluid gutter">
           <!--#include file="./components/productItem.asp"  -->

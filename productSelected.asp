@@ -57,7 +57,7 @@
           </div>
 
           <div class="d-grid mt-5">
-            <a href="./cart.html" class="btn btn-danger">Thêm vào giỏ hàng</a>
+            <a href="./cart.asp" class="btn btn-danger">Thêm vào giỏ hàng</a>
           </div>
         </div>
       </div>

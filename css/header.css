@@ -1,6 +1,5 @@
 .header {
   height: 50px;
-  background-color: #1c64c3;
 }
 
 .menu {
@@ -12,4 +11,15 @@
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+}
+
+.menu__item {
+  display: none;
+}
+.menu:hover .menu__item {
+  z-index: 1000;
+  display: block;
+}
+.menu__item__data:hover {
+  background-color: aliceblue;
 }
