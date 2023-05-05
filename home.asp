@@ -20,18 +20,18 @@
   </head>
   <body>
 
-    <!--#include file="./components/header.asp"  -->
+    <!--#include file="./components/Header.asp"  -->
   
     <main class="main mt-5">
 
-    <!--#include file="./components/slider.asp"  -->
+    <!--#include file="./components/Slider.asp"  -->
 
       <section class="content mt-5">
         <div class="row container-fluid gutter">
-          <!--#include file="./components/productItem.asp"  -->
-          <!--#include file="./components/productItem.asp"  -->
-          <!--#include file="./components/productItem.asp"  -->
-          <!--#include file="./components/productItem.asp"  -->
+          <!--#include file="./components/ProductItem.asp"  -->
+          <!--#include file="./components/ProductItem.asp"  -->
+          <!--#include file="./components/ProductItem.asp"  -->
+          <!--#include file="./components/ProductItem.asp"  -->
           
         </div>
       </section>

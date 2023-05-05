@@ -35,13 +35,13 @@
           <nav>
             <ul class="nav-list d-lg-flex align-items-center gap-5 fw-bold m-0">
               <li class="nav-item d-block">
-                <a href="" class="text-decoration-none"> Trang chu </a>
+                <a href="/" class="text-decoration-none"> Trang chu </a>
               </li>
               <li class="nav-item d-block">
-                <a href="" class="text-decoration-none"> San pham</a>
+                <a href="/productList.asp" class="text-decoration-none"> San pham</a>
               </li>
               <li class="nav-item d-block">
-                <a href="" class="text-decoration-none"> Gio hang </a>
+                <a href="/cart.asp" class="text-decoration-none"> Gio hang </a>
               </li>
             </ul>
           </nav>
@@ -58,18 +58,20 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
             </form>
-          
-                    <a href="">
+                    <a href="./Login.asp">
                       Dang nhap
                     </a>
-          
             <div class="menu position-relative">
               <i class="fa-solid fa-user"></i>
               <div class=" menu__item  position-absolute rounded border" style="width: 150px ; right:0 ; background-color: #fff;" >   
+                    <div  class="p-1 d-flex text-start menu__item__data">
+                      <img class="circle" src="./assets/image/redminote12pro5g-0.webp"/> 
+                      <strong><%=Session("displayName")%></strong>
+                    </div>  
                     <a href="" class="p-1 d-block text-start menu__item__data">
                       Cap nhat thong tin
                     </a>  
-                    <a href="" class="p-1 d-block text-start menu__item__data">
+                    <a href="/ProductAdmin.asp" class="p-1 d-block text-start menu__item__data">
                       Quan Tri
                     </a>  
                     <a href="" class="p-1 d-block text-start menu__item__data">
