@@ -28,7 +28,7 @@ If (NOT isnull(username) AND NOT isnull(password) AND TRIM(username)<>"" AND TRI
         Session("username")=result("username")
         Session("address")=result("address")
         Session("displayName")=result("displayName")
-
+        Session("userCreatedAt")=result("createdAt")
         Response.redirect("home.asp")
     Else
     Session("LoginError")="Tai khon la mat khau khong chinh xac"

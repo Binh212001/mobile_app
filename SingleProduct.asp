@@ -1,3 +1,60 @@
+<!-- #include file="db/connectDB.asp" -->
+<!--#include file="./models/Phone.asp" -->
+<!--#include file="./models/Color.asp" -->
+<!--#include file="./models/Capacity.asp" -->
+
+
+<%
+  dim id  , APhone , Acolor 
+  Set colors = Server.CreateObject("Scripting.Dictionary")
+  Set capacities = Server.CreateObject("Scripting.Dictionary")
+
+  id= Request.QueryString("id")
+  sqlGetPhone = "select * from phones where id =? "
+  
+
+    Dim cmdPrep
+    set cmdPrep = Server.CreateObject("ADODB.Command")
+    cmdPrep.ActiveConnection = connectionString
+    cmdPrep.CommandType=1
+    cmdPrep.Prepared=true
+    cmdPrep.CommandText = sqlGetPhone
+    cmdPrep.Parameters(0)=id
+    Dim result
+    set result = cmdPrep.execute()
+    if not result.EOF then
+      set Aphone = new Phone
+      Aphone.Name = result("phoneName")
+      Aphone.Img = result("image")
+      Aphone.Desc = result("description")
+      Aphone.Qty = result("quantity")
+      Aphone.Price = result("price")
+    end if
+      Set recordset = connection.Execute("select * from getColorOfPhone("+id+")")
+  seq = 0
+  Do While Not recordset.EOF
+    seq = seq+1
+    set Acolor = New Color
+    Acolor.Id = recordset.Fields("id")
+    Acolor.Color = recordset.Fields("colorName")
+    colors.add seq, Acolor
+    recordset.MoveNext
+  Loop 
+
+  Set recordset = connection.Execute("select * from getCapacityOfPhone("+id+")")
+
+   Do While Not recordset.EOF
+    seq = seq+1
+    set Acapacity = New Capacity
+    Acapacity.Id = recordset.Fields("id")
+    Acapacity.Rom = recordset.Fields("rom")
+    Acapacity.Ram = recordset.Fields("ram")
+    capacities.add seq, Acapacity
+    recordset.MoveNext
+  Loop 
+
+%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,25 +92,32 @@
 
         <!-- Product Right  -->
         <div class="col-lg-6">
-          <h5>Nokia C21 Plus 2GB/64GB - Chính hãng</h5>
+          <h5><%=Aphone.Name%></h5>
           <p class="mt-3">
-            <strong>Mô tả:</strong>Nokia C21 Plus sở hữu kích thước nhỏ gọn
-            164.8 x 75.9 X 8.55 mm với trọng lượng chỉ 191g. Chính vì vậy mà
-            người dùng có thể cầm gọn trong một tay để sử dụng mà không cảm thấy
-            mỏi.
+            <strong>Mô tả:</strong>
+            <%=Aphone.Desc%>
           </p>
 
           <div class="price">
             <strong>Giá:</strong>
-            <span class="text-danger fw-bold"> 5.999.999 VND </span>
+            <span class="text-danger fw-bold">
+            <%=Aphone.Price%>
+            </span>
           </div>
           <div class="mt-3 d-flex gap-2 align-items-center">
             <strong>Màu:</strong>
-            <select class="form-control d-inline" name="color" id="">
-              <option value="">Blue</option>
-              <option value="">Green</option>
-              <option value="">red</option>
-            </select>
+              <% For Each item in colors %> 
+                <input type="radio" name="color" required  placeholder="Loai" value = "
+                <%= colors(item).Id %> "  />
+                <span><%= colors(item).Color %> </span>
+              <% Next %>
+          </div>
+           <div class="d-flex gap-2 align-items-center">
+            <strong>Capacities:</strong>
+              <% For Each item in capacities %> 
+                <input type="radio" name="capacity" required  placeholder="Loai" value = "<%= capacities(item).Id %>"  />
+                <span><%= capacities(item).Rom %> / <%= capacities(item).Ram %>  GB </span>
+              <% Next %>
           </div>
 
           <div class="d-grid mt-5">

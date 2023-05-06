@@ -38,7 +38,7 @@
                 <a href="/" class="text-decoration-none"> Trang chu </a>
               </li>
               <li class="nav-item d-block">
-                <a href="/productList.asp" class="text-decoration-none"> San pham</a>
+                <a href="/products.asp" class="text-decoration-none"> San pham</a>
               </li>
               <li class="nav-item d-block">
                 <a href="/cart.asp" class="text-decoration-none"> Gio hang </a>
@@ -58,11 +58,16 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
             </form>
-                    <a href="./Login.asp">
-                      Dang nhap
-                    </a>
+             
+                      <% if (Session("displayName")="") then
+                        Response.Write(" <a href='./Login.asp'> Login  </a>")                   
+                        end if
+                      %>
             <div class="menu position-relative">
-              <i class="fa-solid fa-user"></i>
+             <% if (Session("displayName")<>"") then
+
+              Response.write("<i class='fa-solid fa-user'></i>")
+               end if %>
               <div class=" menu__item  position-absolute rounded border" style="width: 150px ; right:0 ; background-color: #fff;" >   
                     <div  class="p-1 d-flex text-start menu__item__data">
                       <img class="circle" src="./assets/image/redminote12pro5g-0.webp"/> 
@@ -74,9 +79,9 @@
                     <a href="/ProductAdmin.asp" class="p-1 d-block text-start menu__item__data">
                       Quan Tri
                     </a>  
-                    <a href="" class="p-1 d-block text-start menu__item__data">
+                    <li onclick = "logout()" class="p-1 d-block text-start menu__item__data">
                       Dang xuat
-                    </a>
+                    </li>
               </div>
             </div>
 
@@ -84,5 +89,17 @@
       </div>
     </header>
   </body>
+
   <script src="../css/dist/bootstrap-5.0.2-dist/js/bootstrap.js"></script>
 </html>
+
+
+<%
+sub logout()
+        Session("username")=""
+        Session("address")=""
+        Session("displayName")=""
+        Session("avatar")=""
+        Session("userCreatedAt")=""
+end sub
+%>

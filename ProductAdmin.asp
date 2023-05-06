@@ -5,7 +5,7 @@
 
   Set phones = Server.CreateObject("Scripting.Dictionary")
   Dim  seq, Aphone
-  Set recordset = connection.Execute("select * from phones")
+  Set recordset = connection.Execute("select * from phones order by createdAt asc")
 
     seq = 0
   Do While Not recordset.EOF
@@ -16,7 +16,9 @@
     Aphone.Desc = recordset.Fields("description")
     Aphone.Price = recordset.Fields("price")
     Aphone.Qty = recordset.Fields("quantity")
-    Aphone.Img = recordset.Fields("iamge")
+    Aphone.Img = recordset.Fields("image")
+    Aphone.Status = recordset.Fields("status")
+
     
 
     phones.add seq, Aphone
@@ -60,6 +62,7 @@
                 <th scope="col">Anh</th>
                 <th scope="col">So luong</th>
                 <th scope="col">Gia</th>
+                <th scope="col">Status</th>
                 <th scope="col">Action</th>
 
               </tr>
@@ -76,8 +79,12 @@
                 </td>
                 <td scope="row"><%=phones(item).Qty%></td>
                 <td scope="row"><%=phones(item).price%></td>
+
+                <td scope="row"><%=phones(item).Status%></td>
                 <td>
-                <i class="fa-solid fa-trash"></i>
+                <a href="/ProductForm.asp?id=<%=phones(item).Id%>">
+                <i class="fa-regular fa-pen-to-square"></i>
+                </a>
                 </td>
                 </tr>
               <% Next %>             

@@ -1,3 +1,35 @@
+
+
+<!-- #include file="db/connectDB.asp" -->
+<!--#include file="./models/Phone.asp" -->
+<%
+
+  Set phones = Server.CreateObject("Scripting.Dictionary")
+  Dim  seq, Aphone
+  Set recordset = connection.Execute("select * from phones where status=1 order by createdAt asc ")
+
+    seq = 0
+  Do While Not recordset.EOF
+    seq = seq+1
+    set Aphone = New Phone
+    Aphone.Id = recordset.Fields("id")
+    Aphone.Name = recordset.Fields("phoneName")
+    Aphone.Desc = recordset.Fields("description")
+    Aphone.Price = recordset.Fields("price")
+    Aphone.Qty = recordset.Fields("quantity")
+    Aphone.Img = recordset.Fields("image")
+    Aphone.Status = recordset.Fields("status")
+
+    
+
+    phones.add seq, Aphone
+    recordset.MoveNext
+  Loop 
+%>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,11 +60,33 @@
 
       <section class="content mt-5">
         <div class="row container-fluid gutter">
-          <!--#include file="./components/ProductItem.asp"  -->
-          <!--#include file="./components/ProductItem.asp"  -->
-          <!--#include file="./components/ProductItem.asp"  -->
-          <!--#include file="./components/ProductItem.asp"  -->
           
+          <% For Each item in phones %> 
+             <div class="card col-lg-3">
+      <a href="../SingleProduct.asp?id=<%=phones(item).Id%>">
+        <div class="card text-start">
+          <img
+            width="100%"
+            class="card-img-top text-center"
+            src="/savefiles/<%=phones(item).Img%>"
+            alt="Title" />
+          <div class="card-body">
+            <h5 class="card__title">
+              <%=phones(item).Name%>
+            </h5>
+            <strong
+              class="d-block text-decoration-none text-danger fz-bold text-center">
+              <%=phones(item).Price%>
+
+            </strong>
+            <div class="text-center">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+      <% Next %>     
         </div>
       </section>
     </main>

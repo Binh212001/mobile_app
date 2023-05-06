@@ -13,9 +13,8 @@
     <!-- SideBar -->
 
     <div class="col-2">
-      <a href="" class="d-block">San pham</a>
-      <a href="" class="d-block">Don Hang</a>
-      <a href="" class="d-block">Loai</a>
+      <a href="/productAdmin.asp" class="d-block">San pham</a>
+      <a href="/order.asp" class="d-block">Don Hang</a>
     </div>
   </body>
 </html>

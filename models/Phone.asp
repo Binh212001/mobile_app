@@ -8,6 +8,8 @@
     Private p_iamge
     Private p_cat
     Private p_qty
+    Private p_status
+
 
 
     
@@ -67,6 +69,14 @@
 
     Public Property Let Img(value)
       p_iamge = value
+    End Property
+
+    Public Property Get Status()
+      Status = p_status
+    End Property
+
+    Public Property Let Status(value)
+      p_status = value
     End Property
     
   End Class

@@ -35,8 +35,36 @@
     recordset.MoveNext
   Loop 
   
+  dim id ,  phoneName ,  description , price , quantity , cap , Pcolor , cat , picture
   
+  Dim cmdPrep
+  set cmdPrep = Server.CreateObject("ADODB.Command")
+  cmdPrep.ActiveConnection = connection
+  cmdPrep.CommandType=1
+  cmdPrep.Prepared=true
 %>
+
+<%
+
+Dim sqlphone ,sqlphonecolor
+  sqlphone = "insert into phones(id , phoneName , description , price , quantity ,category , image) values(?,?,?,?,?,?,?)"
+  sqlphonecolor = "insert into prColors(phoneId , colorId) values(?,?)"
+  sqlphonecap = "insert into phoneCapacity(phoneId , capacityId) values(?,?)"
+if (Request.QueryString("id")<>"") then
+    id = Request.QueryString("id")
+    cmdPrep.CommandText = "select * from phones where id=?"
+    cmdPrep.Parameters(0)=cint(id)
+    dim result 
+    set result = cmdPrep.Execute()
+
+    phoneName = result("phoneName")
+    description = result("description")
+    price = result("price")
+    quantity = result("quantity")
+    cat = result("category")
+  end if
+%>
+
 
 
 
@@ -69,7 +97,16 @@
       <!--#include file="./components/sidebar.asp"  -->
       <div class="col-10">
         <form method='post' >
-          <h5 class="text-center">Them san pham</h5>
+          <h5 class="text-center">
+          <%
+          IF Request.QueryString("id")<>"" THEN
+          Response.write("CAP NHAT ")
+          Else
+          Response.write("THEM MOI ")
+          END If
+          %>
+          
+          </h5>
 
 
           <div class="mb-3">
@@ -80,7 +117,7 @@
 
           <div class="mb-3">
             <label for="" class="form-label">Ten San Pham</label>
-            <input type="text" class="form-control" name="phoneName" />
+            <input type="text" class="form-control" name="phoneName"  value="<%=phoneName%>"/>
           </div>
           
           
@@ -88,6 +125,7 @@
             <label for="" class="form-label">Mo ta</label>
             <textarea
               type="text"
+              value="<%=description%>"
               class="form-control"
               name="description"></textarea>
           </div>
@@ -95,13 +133,14 @@
           
           <div class="mb-3">
             <label for="" class="form-label">Gia</label>
-            <input type="number" class="form-control" name="price" />
+            <input type="number" class="form-control" name="price" value="<%=price%>" />
           </div>
 
           
           <div class="mb-3">
             <label for="" class="form-label">So luong</label>
             <input
+          value="<%=quantity%>"
               type="number"
               class="form-control"
               name="quantity"
@@ -145,7 +184,7 @@
 				uploader.MultipleFilesUpload=true
         uploader.AllowedFileExtensions="*.jpg,*.png,*.gif,*.zip"
 		    uploader.SaveDirectory="savefiles"
-
+        
 				%>
 				<%=uploader.GetString() %>
 
@@ -165,10 +204,9 @@
 
 
 <%
+  'insert phone
+  if (Request.QueryString("id")="") then
   If Request.Form("picture")&""<>"" Then
-  dim id ,  phoneName ,  description , price , quantity , cap , Pcolor , cat , picture
-  
-  
   id = Request.Form("id")
   phoneName = Request.Form("phoneName")
   description = Request.Form("description")
@@ -177,29 +215,20 @@
   cap = split (Request.Form("capacity"),",")
   Pcolor =split(Request.Form("color"), ",")
   cat = Request.Form("category")
-  Dim cmdPrep
-  set cmdPrep = Server.CreateObject("ADODB.Command")
-  cmdPrep.ActiveConnection = connection
-  cmdPrep.CommandType=1
-  cmdPrep.Prepared=true
+ 
   sqlCheck = "select * from phones where= ?"
 
 
-  
-  
-  Dim mvcfile   
+  dim mvcfile
   Set mvcfile=uploader.GetUploadedFile(Request.Form("picture")) 
   picture =mvcfile.FileName
   
+  
+  
   if(not isnull(id) and not isnull(phoneName) and not isnull(description) and not isnull(price) and Not isnull(quantity) and not isnull(cap) and not isnull(Pcolor) and not isnull(cat) and TRIM(id)<>"" and TRIM(phoneName)<>"" and TRIM(description)<>"")THEN
   
-  Dim sqlphone ,sqlphonecolor
-  sqlphone = "insert into phones(id , phoneName , description , price , quantity ,category , iamge) values(?,?,?,?,?,?,?)"
-  sqlphonecolor = "insert into prColors(phoneId , colorId) values(?,?)"
-  sqlphonecap = "insert into phoneCapacity(phoneId , capacityId) values(?,?)"
   
   
- 
   cmdPrep.CommandText = sqlphone
   cmdPrep.Parameters(0)=cint(id)
   cmdPrep.Parameters(1)=phoneName 
@@ -227,6 +256,64 @@
 
   end if
   end if
+  end if
   
 %>
 
+
+<%
+  'Update
+  if (Request.QueryString("id")<>"") then
+  If Request.Form("picture")&""<>"" Then
+
+  phoneName = Request.Form("phoneName")
+  description = Request.Form("description")
+  price = Request.Form("price")
+  quantity = Request.Form("quantity")
+  cap = split (Request.Form("capacity"),",")
+  Pcolor =split(Request.Form("color"), ",")
+  cat = Request.Form("category")
+  dim file
+  Set file=uploader.GetUploadedFile(Request.Form("picture")) 
+  picture =file.FileName
+  
+  sqlupdatePhone = "update phones set phoneName=? , description=? , price=? , quantity=? , category=? , image=? where id=?"
+  
+  if(not isnull(id) and not isnull(phoneName) and not isnull(description) and not isnull(price) and Not isnull(quantity) and not isnull(cap) and not isnull(Pcolor) and not isnull(cat) and TRIM(id)<>"" and TRIM(phoneName)<>"" and TRIM(description)<>"")THEN
+  
+  
+  cmdPrep.CommandText = sqlupdatePhone
+  cmdPrep.Parameters(0)=phoneName 
+  cmdPrep.Parameters(1)=description
+  cmdPrep.Parameters(2)=price
+  cmdPrep.Parameters(3)=quantity
+  cmdPrep.Parameters(4)=cat
+  cmdPrep.Parameters(5)=picture
+  cmdPrep.Parameters(6)=cint(id)
+  cmdPrep.execute()
+
+  cmdPrep.CommandText = "delete from prColors where phoneId = ?"
+  cmdPrep.Parameters(0)=cint(id)
+  cmdPrep.execute()
+  For each data in Pcolor 
+  cmdPrep.CommandText = sqlphonecolor
+  cmdPrep.Parameters(0)=cint(id)
+  cmdPrep.Parameters(1)=cint(data) 
+  cmdPrep.execute()
+  Next
+
+  cmdPrep.CommandText = "delete from phoneCapacity where phoneId = ?"
+  For each data in cap 
+  cmdPrep.CommandText = sqlphonecap
+  cmdPrep.Parameters(0)=cint(id)
+  cmdPrep.Parameters(1)=cint(data) 
+  cmdPrep.execute()
+  Next
+  
+  Response.redirect("productAdmin.asp")
+
+  end if
+  end if
+  end if
+  
+%>
