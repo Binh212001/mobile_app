@@ -35,9 +35,12 @@
         cmdPrep.Parameters(1)=password
         cmdPrep.Parameters(2)=displayName
         cmdPrep.execute()
-        Session("username")=username
-        Session("password")=password
-        Session("displayName")=displayName
+
+        Session("userId")=result("id")
+        Session("username")=result("username")
+        Session("address")=result("address")
+        Session("displayName")=result("displayName")
+        Session("userCreatedAt")=result("createdAt")
         Response.redirect("home.asp")
         result.Close()
         connection.Close()

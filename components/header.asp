@@ -1,3 +1,15 @@
+<script language="vbscript" type=”text/vbscript”>
+Function  UserLogout_OnClick()
+        Session("id")=""
+        Session("username")=""
+        Session("address")=""
+        Session("displayName")=""
+        Session("avatar")=""
+        Session("userCreatedAt")=""
+        Response.redirect("login.asp")
+end Function 
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -73,15 +85,14 @@
                       <img class="circle" src="./assets/image/redminote12pro5g-0.webp"/> 
                       <strong><%=Session("displayName")%></strong>
                     </div>  
-                    <a href="" class="p-1 d-block text-start menu__item__data">
+                    <a href="user.asp" class="p-1 d-block text-start menu__item__data">
                       Cap nhat thong tin
                     </a>  
                     <a href="/ProductAdmin.asp" class="p-1 d-block text-start menu__item__data">
                       Quan Tri
                     </a>  
-                    <li onclick = "logout()" class="p-1 d-block text-start menu__item__data">
-                      Dang xuat
-                    </li>
+                    <input language="vbscript" type="button" name="UserLogout" value="dang xuat"  class="p-1 d-block text-start menu__item__data"/>
+                      
               </div>
             </div>
 
@@ -94,12 +105,3 @@
 </html>
 
 
-<%
-sub logout()
-        Session("username")=""
-        Session("address")=""
-        Session("displayName")=""
-        Session("avatar")=""
-        Session("userCreatedAt")=""
-end sub
-%>

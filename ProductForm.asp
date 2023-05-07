@@ -306,7 +306,7 @@ if (Request.QueryString("id")<>"") then
   For each data in cap 
   cmdPrep.CommandText = sqlphonecap
   cmdPrep.Parameters(0)=cint(id)
-  cmdPrep.Parameters(1)=cint(data) 
+  cmdPrep.Parameters(1)=cint(data)
   cmdPrep.execute()
   Next
   

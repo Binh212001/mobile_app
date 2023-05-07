@@ -25,6 +25,9 @@ If (NOT isnull(username) AND NOT isnull(password) AND TRIM(username)<>"" AND TRI
     'kiem tra ket qua result o day
     If not result.EOF Then
         ' dang nhap thanh cong
+        Session("userId")=result("id")
+        Session("avartar")=result("avartar")
+
         Session("username")=result("username")
         Session("address")=result("address")
         Session("displayName")=result("displayName")
