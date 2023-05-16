@@ -22,7 +22,13 @@ updatedAt date default getDate()
 
 
 
+ALTER TABLE users
+ADD avatar varchar(100)
+
+
+
 select * from users
+
 
 
 
@@ -43,7 +49,7 @@ create table phones (
   quantity int not null  ,
   price float not null ,
   category varchar(50) not null  default 'iphone' ,
-  iamge varchar(200) not null,
+  image varchar(200) not null,
   status bit default 1 ,
   createdAt date default getdate(),
 updatedAt date default getDate()
@@ -64,8 +70,8 @@ create table carts (
     id int  primary key identity ,
 	userId int FOREIGN KEY REFERENCES users(id),
 	phoneId int FOREIGN KEY REFERENCES phones(id),
-	color varchar(50) not null,
-	count int not null,
+	color varchar(100) not null,
+	capacity  varchar(100) not null ,
 	createdAt date default getdate(),
 	updatedAt date default getDate()
 )
@@ -75,11 +81,17 @@ create table orders (
     id int  primary key identity ,
 	userId int FOREIGN KEY REFERENCES users(id),
 	phoneId int FOREIGN KEY REFERENCES phones(id),
-	count int not null,
-	color varchar(50) not null,
+	color varchar(100) not null,
+	capacity  varchar(100) not null ,
 	createdAt date default getdate(),
 	updatedAt date default getDate()
 )
+
+select * from carts
+
+insert into orders(userId , phoneId , color , capacity) values(1,1,'gray' ,'2/32')
+
+
 
 create table capacities(
 id int primary key identity ,
@@ -103,7 +115,7 @@ join prColors on prColors.phoneId = phones.id
 join colors on prColors.phoneId = colors.id
 
 
-alter function getProduct()
+create function getProduct()
 returns table  
 as
 return  select phones.* , colors.colorName   , capacities.ram , capacities.rom from phoneCapacity 
@@ -114,3 +126,39 @@ join colors on prColors.phoneId = colors.id
 go
 select * from getProduct()
 
+create function getColorOfPhone(@id int)
+returns table  
+as
+return  select colors.* from colors 
+join prColors on prColors.colorId = colors.id
+join phones  on  prColors.phoneId= phones.id
+where phones.id = @id
+go
+select * from getColorOfPhone(1)
+
+alter function getCapacityOfPhone(@id int)
+returns table  
+as
+return  select capacities.* from capacities 
+join phoneCapacity on phoneCapacity.capacityId = capacities.id
+join phones  on  phoneCapacity.phoneId= phones.id
+where phones.id = @id
+go
+
+select * from getCapacityOfPhone(1)
+
+delete from phones
+
+delete from phoneCapacity
+
+delete from prColors
+
+
+select * from carts
+
+SELECT carts.* , phones.phoneName , phones.price , phones.image  FROM  carts
+right join  phones  on carts.phoneId = phones.id
+where userId=6
+
+
+select * from phones where phoneName  like 'i%'
