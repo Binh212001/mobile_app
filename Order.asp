@@ -1,3 +1,16 @@
+<!-- #include file="./db/connectDB.asp" -->
+
+<%
+
+  Dim cmdPrep
+  set cmdPrep = Server.CreateObject("ADODB.Command")
+  cmdPrep.ActiveConnection = connection
+  cmdPrep.CommandType=1
+  cmdPrep.Prepared=true
+  cmdPrep.CommandText = "select * from orders join phones on orders.phoneId = phones.id "
+  dim result
+  set result = cmdPrep.execute()
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,9 +33,8 @@
     <h3 class="text-center">Don Hang</h3>
     <div class="container-fluid row">
       <div class="col-2">
-        <a href="" class="d-block">San pham</a>
-        <a href="" class="d-block">Don Hang</a>
-        <a href="" class="d-block">Loai</a>
+        <a href="productAdmin.asp" class="d-block">San pham</a>
+        <a href="order.asp" class="d-block">Don Hang</a>
       </div>
       <div class="col-10">
         <div class="table-responsive">
@@ -38,16 +50,22 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="">
-                <td scope="row">R1C1</td>
-                <td>R1C2</td>
-                <td>R1C3</td>
-                <td>Item</td>
-                <td>Item</td>
-                <td>
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                </td>
+               <%
+             do while not Result.EOF
+            %>
+              <tr>
+                <td scope="row"><%=result("id")%></td>
+                <td><%=result("phoneName")%></td>
+                <td><img src="./savefiles/<%=result("image")%>" width="200"/></td>
+                <td><%=result("price")%></td>
+                <td><%=result("price")%></td>
+
+                <td><a href="deleteorder.asp?orderId=<%=result("id")%>" class="fa fa-trash" aria-hidden="true"></a></td>
               </tr>
+              <%
+                Result.MoveNext
+                loop
+              %>
             </tbody>
           </table>
         </div>

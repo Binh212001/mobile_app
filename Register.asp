@@ -36,12 +36,10 @@
         cmdPrep.Parameters(2)=displayName
         cmdPrep.execute()
 
-        Session("userId")=result("id")
-        Session("username")=result("username")
-        Session("address")=result("address")
-        Session("displayName")=result("displayName")
-        Session("userCreatedAt")=result("createdAt")
-        Response.redirect("home.asp")
+        Session("username")=user
+        Session("address")=address
+        Session("displayName")=displayName
+        Response.redirect("login.asp")
         result.Close()
         connection.Close()
       End if

@@ -64,7 +64,7 @@
           <% For Each item in phones %> 
              <div class="card col-lg-3">
       <a href="../SingleProduct.asp?id=<%=phones(item).Id%>">
-        <div class="card text-start">
+      <div class="card text-start">
           <img
             width="100%"
             class="card-img-top text-center"

@@ -5,9 +5,11 @@
 
 
 <%
-  dim id  , APhone , Acolor 
+  dim id  , APhone , Acolor  
   Set colors = Server.CreateObject("Scripting.Dictionary")
   Set capacities = Server.CreateObject("Scripting.Dictionary")
+
+
 
   id= Request.QueryString("id")
   sqlGetPhone = "select * from phones where id =? "
@@ -54,7 +56,17 @@
   Loop 
 
 %>
+<%
+  dim  colorselect  ,   capacityselect
 
+  colorselect = Request.form("color")
+  capacityselect = Request.form("capacity")
+  IF(not  isnull(colorselect) and not isnull(capacityselect)and TRIM(colorselect)<>"" and TRIM(capacityselect)<>"")then
+  Response.redirect("/addtocart.asp?phoneId="+id+"&color="+colorselect+"&capacity="+capacityselect+"")
+  end if
+
+
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -104,25 +116,26 @@
             <%=Aphone.Price%>
             </span>
           </div>
+          <form method="post">
           <div class="mt-3 d-flex gap-2 align-items-center">
             <strong>Màu:</strong>
               <% For Each item in colors %> 
-                <input type="radio" name="color" required  placeholder="Loai" value = "
-                <%= colors(item).Id %> "  />
+                <input type="radio" name="color" required  placeholder="Loai" value = "<%= colors(item).Color %>"   />
                 <span><%= colors(item).Color %> </span>
               <% Next %>
           </div>
-           <div class="d-flex gap-2 align-items-center">
+          <div class="d-flex gap-2 align-items-center">
             <strong>Capacities:</strong>
               <% For Each item in capacities %> 
-                <input type="radio" name="capacity" required  placeholder="Loai" value = "<%= capacities(item).Id %>"  />
+                <input type="radio" name="capacity" required  placeholder="Loai" value = "<%= capacities(item).Rom %>/<%= capacities(item).Ram %>"  />
                 <span><%= capacities(item).Rom %> / <%= capacities(item).Ram %>  GB </span>
               <% Next %>
           </div>
+        
+            <button type="submit"  class="btn btn-danger">Thêm vào giỏ hàng</button>
+   
+          </form>
 
-          <div class="d-grid mt-5">
-            <a href="./cart.asp" class="btn btn-danger">Thêm vào giỏ hàng</a>
-          </div>
         </div>
       </div>
     </main>

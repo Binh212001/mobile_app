@@ -26,7 +26,9 @@ If (NOT isnull(username) AND NOT isnull(password) AND TRIM(username)<>"" AND TRI
     If not result.EOF Then
         ' dang nhap thanh cong
         Session("userId")=result("id")
-        Session("avartar")=result("avartar")
+        if (not isnull(Session("avatar"))) then
+        Session("avatar")=result("avatar")
+        end if
 
         Session("username")=result("username")
         Session("address")=result("address")

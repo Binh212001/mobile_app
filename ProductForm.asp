@@ -166,6 +166,13 @@ if (Request.QueryString("id")<>"") then
               <% Next %>
           </div>
 
+          <div class="d-flex gap-2 align-items-center">
+            <strong>Capacities:</strong>
+              <% For Each item in capacities %> 
+                <input type="checkbox" name="capacity" required  placeholder="Loai" value = "<%= capacities(item).Id %>"  />
+                <span><%= capacities(item).Rom %> / <%= capacities(item).Ram %>  GB </span>
+              <% Next %>
+          </div>
           
           <div class="mb-3">
             <label for="" class="form-label">Loai</label>
@@ -265,6 +272,7 @@ if (Request.QueryString("id")<>"") then
   'Update
   if (Request.QueryString("id")<>"") then
   If Request.Form("picture")&""<>"" Then
+  id = Request.QueryString("id")
 
   phoneName = Request.Form("phoneName")
   description = Request.Form("description")
@@ -303,6 +311,9 @@ if (Request.QueryString("id")<>"") then
   Next
 
   cmdPrep.CommandText = "delete from phoneCapacity where phoneId = ?"
+  cmdPrep.Parameters(0)=cint(id)
+
+  cmdPrep.execute()
   For each data in cap 
   cmdPrep.CommandText = sqlphonecap
   cmdPrep.Parameters(0)=cint(id)

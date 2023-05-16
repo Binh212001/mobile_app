@@ -1,14 +1,10 @@
-<script language="vbscript" type=”text/vbscript”>
-Function  UserLogout_OnClick()
-        Session("id")=""
-        Session("username")=""
-        Session("address")=""
-        Session("displayName")=""
-        Session("avatar")=""
-        Session("userCreatedAt")=""
-        Response.redirect("login.asp")
-end Function 
-</script>
+<%
+dim product
+
+if(trim(product) <>"") then
+product = Request.Form("phone")  
+end if
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,9 +56,10 @@ end Function
 
           <!-- feature  -->
           <div class="d-flex align-items-center">
-            <form class="box__search d-flex gap-1">
+            <form action="search.asp?name=<%=product%>" class="box__search d-flex gap-1">
               <input
                 type="text "
+                name="phone"
                 class="form-control"
                 placeholder="Tìm kiếm sản phẩm" />
 
@@ -91,7 +88,7 @@ end Function
                     <a href="/ProductAdmin.asp" class="p-1 d-block text-start menu__item__data">
                       Quan Tri
                     </a>  
-                    <input language="vbscript" type="button" name="UserLogout" value="dang xuat"  class="p-1 d-block text-start menu__item__data"/>
+                    <a  href="logout.asp" name="UserLogout" class="p-1 d-block text-start menu__item__data">Dang xuat</a>
                       
               </div>
             </div>

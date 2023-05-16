@@ -1,3 +1,33 @@
+
+<!-- #include file="./db/connectDB.asp" -->
+
+<%
+  dim userId
+  userId = Session("userId")
+  
+  'check user have been login yet!
+  if (not isnull(userId)) then
+  'if user lack "address" or "phone"  ===> update user
+
+
+    dim sql 
+    sql=  "SELECT carts.* , phones.phoneName , phones.price , phones.image  FROM  carts join  phones  on carts.phoneId = phones.id where userId=?"
+    Dim cmdPrep
+    set cmdPrep = Server.CreateObject("ADODB.Command")
+    cmdPrep.ActiveConnection = connection
+    cmdPrep.CommandType=1
+    cmdPrep.Prepared=true
+    cmdPrep.CommandText = sql
+
+    cmdPrep.Parameters(0)=userId
+    dim result 
+    set result = cmdPrep.execute()
+
+  else
+  Response.redirect("../login.asp")
+  end if
+%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,24 +58,25 @@
                 <th>Id</th>
                 <th>Product</th>
                 <th>Image</th>
-                <th>Count</th>
-                <th>Total</th>
+                <th>Price</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
+            <%
+             do while not Result.EOF
+            %>
               <tr>
-                <td scope="row">Item</td>
-                <td>Item</td>
-                <td>Item</td>
-                <td>Item</td>
-                <td>
-                  <button class="bg-white" style="border: none">-</button>
-                  <span>1</span>
-                  <button class="bg-white" style="border: none">+</button>
-                </td>
-                <td><i class="fa fa-trash" aria-hidden="true"></i></td>
+                <td scope="row"><%=result("id")%></td>
+                <td><%=result("phoneName")%></td>
+                <td><img src="./savefiles/<%=result("image")%>" width="200"/></td>
+                <td><%=result("price")%></td>
+                <td><a href="deletecart.asp?cartId=<%=result("id")%>" class="fa fa-trash" aria-hidden="true"></a></td>
               </tr>
+              <%
+                Result.MoveNext
+                loop
+              %>
             </tbody>
           </table>
         </div>

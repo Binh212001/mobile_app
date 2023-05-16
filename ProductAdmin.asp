@@ -51,7 +51,7 @@
       <div class="d-flex gap-2">
       <input class ="form-control "  /> 
       <button class="btn btn-primary" >Tim Kiem</button>
-      <button class="btn btn-primary" >Them San Pham</button>
+      <a class="btn btn-primary"  href="productForm.asp">Them San Pham</a>
       </div>
         <div class="table-responsive">
           <table class="table">
