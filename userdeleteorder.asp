@@ -15,11 +15,11 @@
   cmdPrep.ActiveConnection = connection
   cmdPrep.CommandType=1
   cmdPrep.Prepared=true
-  cmdPrep.CommandText = "delete from  orders where id = ? "
+  cmdPrep.CommandText = "update  orders set status=0 where id=? "
   cmdPrep.Parameters(0)=orderId
   cmdPrep.execute()
 
-  Response.redirect("./order.asp")
+  Response.redirect("./cart.asp")
 
   end if
 

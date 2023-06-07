@@ -7,7 +7,7 @@
   cmdPrep.ActiveConnection = connection
   cmdPrep.CommandType=1
   cmdPrep.Prepared=true
-  cmdPrep.CommandText = "select * from orders join phones on orders.phoneId = phones.id "
+  cmdPrep.CommandText = "select * , orders.id as orderid from orders join phones on orders.phoneId = phones.id "
   dim result
   set result = cmdPrep.execute()
 %>
@@ -54,13 +54,13 @@
              do while not Result.EOF
             %>
               <tr>
-                <td scope="row"><%=result("id")%></td>
+                <td scope="row"><%=result("orderid")%></td>
                 <td><%=result("phoneName")%></td>
                 <td><img src="./savefiles/<%=result("image")%>" width="200"/></td>
                 <td><%=result("price")%></td>
                 <td><%=result("price")%></td>
 
-                <td><a href="deleteorder.asp?orderId=<%=result("id")%>" class="fa fa-trash" aria-hidden="true"></a></td>
+                <td><a href="deleteorder.asp?orderId=<%=result("orderid")%>" class="fa fa-trash" aria-hidden="true"></a></td>
               </tr>
               <%
                 Result.MoveNext

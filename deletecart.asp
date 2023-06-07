@@ -14,7 +14,7 @@
   cmdPrep.ActiveConnection = connection
   cmdPrep.CommandType=1
   cmdPrep.Prepared=true
-  cmdPrep.CommandText = "DELETE FROM carts where id=? "
+  cmdPrep.CommandText = "UPDATE  carts SET STATUS=0 where id=? "
   cmdPrep.Parameters(0)=cartId
   cmdPrep.execute()
 

@@ -53,7 +53,7 @@ Dim sqlphone ,sqlphonecolor
 if (Request.QueryString("id")<>"") then
     id = Request.QueryString("id")
     cmdPrep.CommandText = "select * from phones where id=?"
-    cmdPrep.Parameters(0)=cint(id)
+    cmdPrep.Parameters(0)=id
     dim result 
     set result = cmdPrep.Execute()
 
@@ -166,14 +166,7 @@ if (Request.QueryString("id")<>"") then
               <% Next %>
           </div>
 
-          <div class="d-flex gap-2 align-items-center">
-            <strong>Capacities:</strong>
-              <% For Each item in capacities %> 
-                <input type="checkbox" name="capacity" required  placeholder="Loai" value = "<%= capacities(item).Id %>"  />
-                <span><%= capacities(item).Rom %> / <%= capacities(item).Ram %>  GB </span>
-              <% Next %>
-          </div>
-          
+        
           <div class="mb-3">
             <label for="" class="form-label">Loai</label>
             <input type="radio"  name="category" value='iphone' /><span> Iphone </span>
@@ -223,7 +216,7 @@ if (Request.QueryString("id")<>"") then
   Pcolor =split(Request.Form("color"), ",")
   cat = Request.Form("category")
  
-  sqlCheck = "select * from phones where= ?"
+  sqlCheck = "select * from phones where id= ?"
 
 
   dim mvcfile
@@ -237,7 +230,7 @@ if (Request.QueryString("id")<>"") then
   
   
   cmdPrep.CommandText = sqlphone
-  cmdPrep.Parameters(0)=cint(id)
+  cmdPrep.Parameters(0)=id
   cmdPrep.Parameters(1)=phoneName 
   cmdPrep.Parameters(2)=description
   cmdPrep.Parameters(3)= price
@@ -247,14 +240,14 @@ if (Request.QueryString("id")<>"") then
   cmdPrep.execute()
   For each data in Pcolor 
   cmdPrep.CommandText = sqlphonecolor
-  cmdPrep.Parameters(0)=cint(id)
+  cmdPrep.Parameters(0)=id
   cmdPrep.Parameters(1)=cint(data) 
   cmdPrep.execute()
   Next
 
   For each data in cap 
   cmdPrep.CommandText = sqlphonecap
-  cmdPrep.Parameters(0)=cint(id)
+  cmdPrep.Parameters(0)=id
   cmdPrep.Parameters(1)=cint(data) 
   cmdPrep.execute()
   Next
@@ -297,26 +290,26 @@ if (Request.QueryString("id")<>"") then
   cmdPrep.Parameters(3)=quantity
   cmdPrep.Parameters(4)=cat
   cmdPrep.Parameters(5)=picture
-  cmdPrep.Parameters(6)=cint(id)
+  cmdPrep.Parameters(6)=id
   cmdPrep.execute()
 
   cmdPrep.CommandText = "delete from prColors where phoneId = ?"
-  cmdPrep.Parameters(0)=cint(id)
+  cmdPrep.Parameters(0)=id
   cmdPrep.execute()
   For each data in Pcolor 
   cmdPrep.CommandText = sqlphonecolor
-  cmdPrep.Parameters(0)=cint(id)
+  cmdPrep.Parameters(0)=id
   cmdPrep.Parameters(1)=cint(data) 
   cmdPrep.execute()
   Next
 
   cmdPrep.CommandText = "delete from phoneCapacity where phoneId = ?"
-  cmdPrep.Parameters(0)=cint(id)
+  cmdPrep.Parameters(0)=id
 
   cmdPrep.execute()
   For each data in cap 
   cmdPrep.CommandText = sqlphonecap
-  cmdPrep.Parameters(0)=cint(id)
+  cmdPrep.Parameters(0)=id
   cmdPrep.Parameters(1)=cint(data)
   cmdPrep.execute()
   Next

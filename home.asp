@@ -67,6 +67,7 @@
       <div class="card text-start">
           <img
             width="100%"
+            height="300px"
             class="card-img-top text-center"
             src="/savefiles/<%=phones(item).Img%>"
             alt="Title" />

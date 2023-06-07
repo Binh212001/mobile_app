@@ -5,14 +5,14 @@
 
 
 <%
-  dim id  , APhone , Acolor  
+  dim id  , APhone , Acolor  ,seq
   Set colors = Server.CreateObject("Scripting.Dictionary")
   Set capacities = Server.CreateObject("Scripting.Dictionary")
 
 
 
   id= Request.QueryString("id")
-  sqlGetPhone = "select * from phones where id =? "
+  sqlGetPhone = "select * from phones where id=? "
   
 
     Dim cmdPrep
@@ -32,7 +32,7 @@
       Aphone.Qty = result("quantity")
       Aphone.Price = result("price")
     end if
-      Set recordset = connection.Execute("select * from getColorOfPhone("+id+")")
+    Set recordset = connection.Execute("select * from getColorOfPhone('"+id+"')")
   seq = 0
   Do While Not recordset.EOF
     seq = seq+1
@@ -43,7 +43,7 @@
     recordset.MoveNext
   Loop 
 
-  Set recordset = connection.Execute("select * from getCapacityOfPhone("+id+")")
+  Set recordset = connection.Execute("select * from getCapacityOfPhone('"+id+"')")
 
    Do While Not recordset.EOF
     seq = seq+1

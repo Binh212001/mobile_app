@@ -34,6 +34,8 @@
         cmdPrep.Parameters(0)=username
         cmdPrep.Parameters(1)=password
         cmdPrep.Parameters(2)=displayName
+        Session("isAdmin")=result("isAdmin")
+
         cmdPrep.execute()
 
         Session("username")=user

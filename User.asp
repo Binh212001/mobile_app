@@ -4,7 +4,7 @@
 
 
 <%
- 
+
   Dim cmdPrep
   set cmdPrep = Server.CreateObject("ADODB.Command")
   cmdPrep.ActiveConnection = connection
@@ -66,7 +66,7 @@
         <div class="row mt-4">
           <div class="col-3">
           <%
-          if Session("avartar")<> "" then
+          if Session("avatar")<> "" then
             Response.write("<img width='100%' src='savefiles/"+Session("avatar")+"'/>")
           else
             Response.write("<img src='assets/image/logo.png'/>")

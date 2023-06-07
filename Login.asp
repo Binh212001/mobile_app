@@ -18,8 +18,10 @@ If (NOT isnull(username) AND NOT isnull(password) AND TRIM(username)<>"" AND TRI
     cmdPrep.CommandType=1
     cmdPrep.Prepared=true
     cmdPrep.CommandText = sql
+
     cmdPrep.Parameters(0)=username
     cmdPrep.Parameters(1)=password
+ 
     Dim result
     set result = cmdPrep.execute()
     'kiem tra ket qua result o day
@@ -31,6 +33,8 @@ If (NOT isnull(username) AND NOT isnull(password) AND TRIM(username)<>"" AND TRI
         end if
 
         Session("username")=result("username")
+        Session("isAdmin")=result("isAdmin")
+
         Session("address")=result("address")
         Session("displayName")=result("displayName")
         Session("userCreatedAt")=result("createdAt")
