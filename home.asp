@@ -58,6 +58,7 @@
 
     <!--#include file="./components/Slider.asp"  -->
 
+       <%=Session("uerId")%>
       <section class="content mt-5">
         <div class="row container-fluid gutter">
           

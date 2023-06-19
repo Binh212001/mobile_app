@@ -11,7 +11,7 @@
 
 
     dim sql  , sql2
-    sql=  "SELECT carts.* , phones.phoneName , phones.price , phones.image  FROM  carts join  phones  on carts.phoneId = phones.id where userId=?"
+    sql=  "SELECT carts.* , phones.phoneName , phones.price , phones.image  FROM  carts join  phones  on carts.phoneId = phones.id where userId=? "
     sql2=  "SELECT orders.* , phones.phoneName , phones.price , phones.image  FROM  orders join  phones  on orders.phoneId = phones.id where userId=? and orders.status=1"
    
     Dim cmdPrep
@@ -23,9 +23,10 @@
 
     cmdPrep.Parameters(0)=userId
     dim result  , orderresult
+    'cart result
     set result = cmdPrep.execute()
     cmdPrep.CommandText = sql2
-
+    'ỏrdder result
     cmdPrep.Parameters(0)=userId
     set  orderresult =cmdPrep.execute
 

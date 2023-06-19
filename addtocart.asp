@@ -12,7 +12,7 @@ Response.Write(userId)
   'check user have been login yet!
   if (not isnull(Session("userId")) AND TRIM(userId) <>"") then
   'if user lack "address" or "phone"  ===> update user
-    if(not isnull(Session("address")) and not isnull(Session("phone")) and trim(Session("address"))<>"" and trim(Session("phone"))<>""  ) then
+    if(not isnull(Session("address")) and not isnull(Session("phone")) and trim(Session("address"))<>"" and trim(Session("phone"))<>"") then
     'add to cart
     Dim cmdPrep
     set cmdPrep = Server.CreateObject("ADODB.Command")
