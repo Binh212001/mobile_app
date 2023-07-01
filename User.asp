@@ -15,18 +15,15 @@
   address = Request.Form("address")
   phone = Request.Form("phone")
 
-
   if (not isnull(displayName) and not isnull(address) and not isnull(phone) and TRIM(displayName)<>"" and TRIM(address)<>"" and TRIM(phone)<>"")then
 
   dim sqlupdateUser
   sqlupdateUser = "update users set displayName=? , phone=?, address=? where id=?"
   cmdPrep.CommandText =sqlupdateUser
-
   cmdPrep.Parameters(0)=displayName
   cmdPrep.Parameters(1)=phone
   cmdPrep.Parameters(2)=address
   cmdPrep.Parameters(3)=cint(Session("userId"))
-
   cmdPrep.execute()
 
 

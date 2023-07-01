@@ -11,7 +11,7 @@
 
 
 
-  id= Request.QueryString("id")
+  id= Request.QueryString("id") 'lay id tren url
   sqlGetPhone = "select * from phones where id=? "
   
 
@@ -20,10 +20,12 @@
     cmdPrep.ActiveConnection = connectionString
     cmdPrep.CommandType=1
     cmdPrep.Prepared=true
+    'Tao commantext
     cmdPrep.CommandText = sqlGetPhone
     cmdPrep.Parameters(0)=id
-    Dim result
-    set result = cmdPrep.execute()
+ 
+    Dim result 
+    set result = cmdPrep.execute() 'tra ve 1 danh sach
     if not result.EOF then
       set Aphone = new Phone
       Aphone.Name = result("phoneName")
@@ -32,17 +34,24 @@
       Aphone.Qty = result("quantity")
       Aphone.Price = result("price")
     end if
+
+
+    'load mau
+    
     Set recordset = connection.Execute("select * from getColorOfPhone('"+id+"')")
-  seq = 0
-  Do While Not recordset.EOF
+    seq = 0
+    Do While Not recordset.EOF
     seq = seq+1
+
     set Acolor = New Color
     Acolor.Id = recordset.Fields("id")
     Acolor.Color = recordset.Fields("colorName")
+
     colors.add seq, Acolor
+
     recordset.MoveNext
   Loop 
-
+ 'load
   Set recordset = connection.Execute("select * from getCapacityOfPhone('"+id+"')")
 
    Do While Not recordset.EOF
@@ -56,16 +65,14 @@
   Loop 
 
 %>
+
 <%
   dim  colorselect  ,   capacityselect
-
   colorselect = Request.form("color")
   capacityselect = Request.form("capacity")
   IF(not  isnull(colorselect) and not isnull(capacityselect)and TRIM(colorselect)<>"" and TRIM(capacityselect)<>"")then
   Response.redirect("/addtocart.asp?phoneId="+id+"&color="+colorselect+"&capacity="+capacityselect+"")
   end if
-
-
 %>
 <!DOCTYPE html>
 <html lang="en">

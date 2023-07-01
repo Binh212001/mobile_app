@@ -3,6 +3,7 @@
 
 <%
   dim orderId  
+  'lay tren url
   orderId = Request.QueryString("orderId")
 
 

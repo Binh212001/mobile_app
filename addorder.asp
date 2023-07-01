@@ -4,6 +4,7 @@
 <%
 dim color , capacity , phoneId , userId
   userId = Session("userId")
+  'Lay thong tin tren url
   phoneId  = Request.QueryString("phoneId")
   color  = Request.QueryString("color")
   capacity  = Request.QueryString("capacity")
@@ -12,7 +13,7 @@ dim color , capacity , phoneId , userId
   if (not isnull(Session("userId"))) then
   'if user lack "address" or "phone"  ===> update user
     if(not isnull(Session("address")) and not isnull(Session("phone")) and trim(Session("address"))<>"" and trim(Session("phone"))<>""  ) then
-    'add to cart
+    'add to orders
     Dim cmdPrep
     set cmdPrep = Server.CreateObject("ADODB.Command")
     cmdPrep.ActiveConnection = connection

@@ -22,13 +22,16 @@
     cmdPrep.CommandText = sql
 
     cmdPrep.Parameters(0)=userId
-    dim result  , orderresult
     'cart result
-    set result = cmdPrep.execute()
+    set result = cmdPrep.execute() ' Thhuc thicau lenh
+
+    dim result  , orderresult
+
     cmdPrep.CommandText = sql2
     'ỏrdder result
     cmdPrep.Parameters(0)=userId
-    set  orderresult =cmdPrep.execute
+
+    set  orderresult = cmdPrep.execute()   ' thhcs thi cau len
 
   else
   Response.redirect("../login.asp")
@@ -71,6 +74,8 @@
             </thead>
             <tbody>
             <%
+            'load du lieu  ra bang  gio hang
+            'do while de lopp du lieu ra man hinh
              do while not Result.EOF
             %>
               <tr>
@@ -79,6 +84,7 @@
                 <td><img src="./savefiles/<%=result("image")%>" width="200"/></td>
                 <td><%=result("price")%></td>
                 <td><a href="deletecart.asp?cartId=<%=result("id")%>" class="fa fa-trash" aria-hidden="true"></a>
+                
                       <a href="addorder.asp?phoneId=<%=result("phoneId")%>&color=<%=result("color")%>&capacity=<%="capacity"%>">
                         <i class="fa-solid fa-cart-shopping"></i>
                       </a>
@@ -106,7 +112,11 @@
             </thead>
             <tbody>
             <%
+
+             'load du lieu  ra bang  don hang
+            'do while de loop du lieu ra man hinh
              do while not orderresult.EOF
+
             %>
               <tr>
                 <td scope="row"><%=orderresult("id")%></td>
@@ -114,7 +124,6 @@
                 <td><img src="./savefiles/<%=orderresult("image")%>" width="200"/></td>
                 <td><%=orderresult("price")%></td>
                 <td><a href="userdeleteorder.asp?orderId=<%=orderresult("id")%>" class="fa fa-trash" aria-hidden="true"></a>
-              
                 </td>
               </tr>
               <%

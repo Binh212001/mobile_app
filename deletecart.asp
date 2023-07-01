@@ -3,9 +3,9 @@
 
 <%
   dim cartId  
+  'Lay cartId tren url
   cartId = Request.QueryString("cartId")
 
-  Response.write(cartId)
   if(not isnull(cartId) and trim(cartId)<>"")then
  
 
@@ -19,7 +19,6 @@
   cmdPrep.execute()
 
   Response.redirect("./Cart.asp")
-
   end if
 
 %>

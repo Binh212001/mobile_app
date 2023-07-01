@@ -1,15 +1,17 @@
 
 
 <!-- #include file="db/connectDB.asp" -->
+
 <!--#include file="./models/Phone.asp" -->
 <%
-
+  'list 
   Set phones = Server.CreateObject("Scripting.Dictionary")
   Dim  seq, Aphone
   Set recordset = connection.Execute("select * from phones where status=1 order by createdAt asc ")
 
     seq = 0
   Do While Not recordset.EOF
+  'loop 
     seq = seq+1
     set Aphone = New Phone
     Aphone.Id = recordset.Fields("id")
@@ -23,6 +25,7 @@
     
 
     phones.add seq, Aphone
+    'chuyen den ban ghi tiep theo
     recordset.MoveNext
   Loop 
 %>
@@ -63,7 +66,7 @@
         <div class="row container-fluid gutter">
           
           <% For Each item in phones %> 
-             <div class="card col-lg-3">
+            <div class="card col-lg-3">
       <a href="../SingleProduct.asp?id=<%=phones(item).Id%>">
       <div class="card text-start">
           <img

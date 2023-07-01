@@ -6,12 +6,16 @@
   if (Request.ServerVariables("REQUEST_METHOD") = "POST") THEN        
 
   Dim username, password
+
   username = Request.Form("username")
   password = Request.Form("password")
+
 If (NOT isnull(username) AND NOT isnull(password) AND TRIM(username)<>"" AND TRIM(password)<>"" ) Then
     ' true
     Dim sql
+
     sql = "select * from users where username= ? and password= ?"
+
     Dim cmdPrep
     set cmdPrep = Server.CreateObject("ADODB.Command")
     cmdPrep.ActiveConnection = connection
@@ -41,6 +45,7 @@ If (NOT isnull(username) AND NOT isnull(password) AND TRIM(username)<>"" AND TRI
         Session("userCreatedAt")=result("createdAt")
         Response.redirect("home.asp")
     Else
+    'dang nhap that baui
     Session("LoginError")="Tai khon la mat khau khong chinh xac"
     result.Close()
     connection.Close()

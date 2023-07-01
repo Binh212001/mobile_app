@@ -3,7 +3,7 @@
 
 <%
 dim color , capacity , phoneId , userId
-Response.Write(userId)
+
   userId = Session("userId")
   phoneId  = Request.QueryString("phoneId")
   color  = Request.QueryString("color")
@@ -30,6 +30,7 @@ Response.Write(userId)
     cmdPrep.Parameters(3)=capacity
 
     cmdPrep.execute
+    
     Response.redirect("../cart.asp")
 
     else

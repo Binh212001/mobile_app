@@ -15,6 +15,7 @@
     If (NOT isnull(username) AND NOT isnull(password) AND NOT isnull(displayName) AND NOT isnull(confirmPassword) AND TRIM(username)<>"" AND TRIM(password)<>"" AND TRIM(password)=TRIM(confirmPassword) ) Then
     ' true
 
+      'check user da dang ki chua
       Dim cmdPrep, Result
       Set cmdPrep = Server.CreateObject("ADODB.Command")
       cmdPrep.ActiveConnection = connection
@@ -25,22 +26,16 @@
 
       If not result.EOF Then
       ' username da ton tai
-        Response.write("username da ton tai")
         Session("userExiting")="Username da ton tai"
         Response.redirect("register.asp")
       Else
-        
+        'dang ki
         cmdPrep.CommandText =  "insert into users(username,password,displayName ) values (?,?,?)"
         cmdPrep.Parameters(0)=username
         cmdPrep.Parameters(1)=password
         cmdPrep.Parameters(2)=displayName
-        Session("isAdmin")=result("isAdmin")
-
-        cmdPrep.execute()
-
-        Session("username")=user
-        Session("address")=address
-        Session("displayName")=displayName
+        
+        set result= cmdPrep.execute() 
         Response.redirect("login.asp")
         result.Close()
         connection.Close()

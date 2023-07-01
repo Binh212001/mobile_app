@@ -10,8 +10,6 @@
     Private p_qty
     Private p_status
 
-
-
     
 
       ' getter and setter
