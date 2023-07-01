@@ -1,7 +1,9 @@
 <!-- #include file="./db/connectDB.asp" -->
 
 <%
-
+  if (Session("isAdmin")=0)then
+  Response.redirect("/")
+  end if
   Dim cmdPrep
   set cmdPrep = Server.CreateObject("ADODB.Command")
   cmdPrep.ActiveConnection = connection

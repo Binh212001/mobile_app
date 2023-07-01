@@ -1,6 +1,5 @@
 <%
 dim product
-
 if(trim(product) <>"") then
 product = Request.Form("phone")  
 end if

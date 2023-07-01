@@ -5,6 +5,9 @@
 
 
 <%
+  if (Session("isAdmin")=0)then
+  Response.redirect("/")
+  end if
   ' create an instance of ADO connection and recordset objects
   Set capacities = Server.CreateObject("Scripting.Dictionary")
   Set colors = Server.CreateObject("Scripting.Dictionary")
@@ -50,6 +53,8 @@ Dim sqlphone ,sqlphonecolor
   sqlphone = "insert into phones(id , phoneName , description , price , quantity ,category , image) values(?,?,?,?,?,?,?)"
   sqlphonecolor = "insert into prColors(phoneId , colorId) values(?,?)"
   sqlphonecap = "insert into phoneCapacity(phoneId , capacityId) values(?,?)"
+
+'Bindding 
 if (Request.QueryString("id")<>"") then
     id = Request.QueryString("id")
     cmdPrep.CommandText = "select * from phones where id=?"

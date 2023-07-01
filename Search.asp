@@ -12,9 +12,8 @@ else
   cmdPrep.ActiveConnection = connection
   cmdPrep.CommandType=1
   cmdPrep.Prepared=true
-  cmdPrep.CommandText = "select * from phones where phoneName like '"+name+"%'"
+  cmdPrep.CommandText = "select * from phones where status=1 and phoneName like '%"+name+"%'"
   dim Result
-
   set Result = cmdPrep.execute()
 end if
 
@@ -37,7 +36,7 @@ end if
         <div class="row container-fluid gutter">
 
           <%
-             do while not Result.EOF
+            do while not Result.EOF
             %>
           <div class="card col-lg-3">
             <a href="../SingleProduct.asp?id=<%=result("id")%>">

@@ -52,7 +52,7 @@
       <!--#include file="./components/sidebar.asp"  -->
       <div class="col-10">
       <div class="d-flex gap-2">
-      <form  class="d-flex" action="productAdminSearch.asp" >
+      <form  class="d-flex" action="productAdminSearch.asp" method="post">
       <input class ="form-control "  name="keyword" /> 
       <button class="btn btn-primary"  type="submit">Tim Kiem</button>
       </form>
